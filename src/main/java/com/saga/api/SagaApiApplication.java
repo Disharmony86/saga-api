@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SagaApiApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(SagaApiApplication.class, args);
     }
 
