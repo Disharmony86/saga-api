@@ -13,5 +13,4 @@ public class HealthController {
     public HealthResponse health() {
         return new HealthResponse("OK", "1.0.0");
     }
-
 }
