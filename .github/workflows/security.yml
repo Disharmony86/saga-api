@@ -1,0 +1,35 @@
+name: Security Scan
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+  schedule:
+    - cron: '0 3 * * 1'   # Corre cada lunes a las 3 AM (opcional)
+  workflow_dispatch:       # Permite correrlo manualmente
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Descargar código
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Revisar dependencias vulnerables
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+
+      # 3. Iniciar CodeQL
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: java
+
+      # 4. Build para análisis
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
+
+      # 5. Análisis de seguridad
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
