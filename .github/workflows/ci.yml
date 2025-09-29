@@ -38,17 +38,17 @@ jobs:
 
       # 5. Subir reportes de pruebas (JUnit Surefire)
       - name: Upload test reports
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-reports
           path: target/surefire-reports
 
-      # 6. (Opcional) Generar reporte de cobertura con JaCoCo
+      # 6. Generar reporte de cobertura con JaCoCo
       - name: Run tests with coverage
         run: mvn jacoco:report
 
       - name: Upload coverage report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: target/site/jacoco
