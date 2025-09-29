@@ -1,9 +1,9 @@
 name: Security Scan - Dependency Check
 on:
   push:
-    branches: ["master"]
+    branches: [ "master" ]
   pull_request:
-    branches: ["master"]
+    branches: [ "master" ]
   schedule:
     - cron: '0 3 * * 1'   # Corre cada lunes a las 3 AM (opcional)
   workflow_dispatch:       # Permite correrlo manualmente
@@ -16,20 +16,34 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Revisar dependencias vulnerables
-      - name: Dependency Review
-        uses: actions/dependency-review-action@v4
+      # 2. Configurar Java 24 (igual que tu proyecto)
+      - name: Set up JDK 24
+        uses: actions/setup-java@v4
+        with:
+          java-version: '24'
+          distribution: 'temurin'
 
-      # 3. Iniciar CodeQL
+      # 3. Ejecutar OWASP Dependency-Check
+      - name: Run OWASP Dependency Check
+        run: mvn org.owasp:dependency-check-maven:check
+
+      # 4. Subir reportes como artefacto
+      - name: Upload dependency-check report
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-check-report
+          path: target/dependency-check-report.*
+
+      # 5. Iniciar CodeQL
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
           languages: java
 
-      # 4. Build para análisis
+      # 6. Build para análisis
       - name: Autobuild
         uses: github/codeql-action/autobuild@v2
 
-      # 5. Análisis de seguridad
+      # 7. Análisis de seguridad
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
