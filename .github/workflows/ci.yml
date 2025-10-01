@@ -2,14 +2,14 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master" ]  # Cuando hacemos push a GitHub, empieza a correr automaticamente el pipeline
   pull_request:
     branches: [ "master" ]
   workflow_dispatch:   # Permite correrlo manualmente desde Actions
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # las pruebas se realizan en ambiente linux
 
     steps:
       # 1. Descargar el repo
@@ -23,7 +23,7 @@ jobs:
           java-version: '24'
           distribution: 'temurin'
 
-      # 3. Cachear dependencias para builds más rápidos
+      # 3. Obtiene el Cache de las dependencias para builds más rápidos
       - name: Cache Maven packages
         uses: actions/cache@v3
         with:
@@ -32,7 +32,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      # 4. Compilar y correr pruebas
+      # 4. Compila y  las correr pruebas
       - name: Build & Test
         run: mvn -B clean verify
 

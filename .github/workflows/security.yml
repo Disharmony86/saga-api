@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [ "master" ]
   schedule:
-    - cron: '0 3 * * 1'   # Corre cada lunes a las 3 AM (opcional)
+    - cron: '0 3 * * 1'   # Corre cada lunes a las 3 AM (ejemplo profesional)
   workflow_dispatch:       # Permite correrlo manualmente
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Configurar Java 24 (igual que tu proyecto)
+      # 2. Configurar Java 24
       - name: Set up JDK 24
         uses: actions/setup-java@v4
         with:
@@ -27,7 +27,7 @@ jobs:
       - name: Run OWASP Dependency Check
         run: mvn org.owasp:dependency-check-maven:check
 
-      # 4. Subir reportes como artefacto
+      # 4. Subir reportes de validacion
       - name: Upload dependency-check report
         uses: actions/upload-artifact@v4
         with:
@@ -44,6 +44,14 @@ jobs:
       - name: Autobuild
         uses: github/codeql-action/autobuild@v2
 
-      # 7. Análisis de seguridad
+      # 7. Análisis de seguridad con CodeQL
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@v2
+        with:
+          projectKey: disharmony86
+          organization: Disharmony86
+          token: ${{ secrets.SONAR_TOKEN }}
+
