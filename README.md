@@ -4,7 +4,7 @@ Autor: Alfredo Enrique Revollo Castañeda
 Universidad: Manuela Beltrán
 Carrera: Ingeniería de Software
 Materia: Ingeniería Web 1
-Docente: Diana Marcela Toquica Rodríguez
+
 Fecha: Octubre de 2025
 
 📘 Descripción
@@ -16,14 +16,23 @@ Arquitectura y Stack:
 
 Componente	Descripción
 Lenguaje	Java 17
+
 Framework	Spring Boot 3.5.6
+
 Patrón	MVC (Modelo–Vista–Controlador)
+
 Base de datos	En memoria (ArrayList)
+
 Documentación API	Swagger / OpenAPI
+
 Control de versiones	Git y GitHub
+
 CI/CD	GitHub Actions + SonarCloud + OWASP
+
 Pruebas	JUnit + JaCoCo
+
 🧩 Endpoints principales
+
 Método	Endpoint	Descripción
 POST	/api/requerimientos	Agrega un nuevo requerimiento
 GET	/api/requerimientos	Lista todos los requerimientos
