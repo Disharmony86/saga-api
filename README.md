@@ -34,9 +34,13 @@ Pruebas	JUnit + JaCoCo
 🧩 Endpoints principales
 
 Método	Endpoint	Descripción
+
 POST	/api/requerimientos	Agrega un nuevo requerimiento
+
 GET	/api/requerimientos	Lista todos los requerimientos
+
 GET	/api/requerimientos/{id}	Obtiene un requerimiento por ID
+
 PUT	/api/requerimientos/{id}/estado	Actualiza el estado de un requerimiento
 
 Swagger UI:
